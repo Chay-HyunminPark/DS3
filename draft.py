@@ -58,3 +58,17 @@ y_pred = forest.predict(x_test)
 from sklearn.metrics import mean_squared_error
 mse = mean_squared_error(y_test, y_pred)
 # MSE is 0.025; it is close to 0 and it means the model's prediction is close to the actual value(test).
+
+# Check which predictors were effective
+forest_features = pd.Series(forest.feature_importances_.tolist(), index = list(predictors.columns))
+sorted_forest_features = forest_features.sort_values(ascending = False, key = abs)
+sorted_forest_features
+
+# The most important predictors were Delta_variance and discharge cap. slope
+
+# Plot the Random Forest model
+plt.scatter(y_test, y_pred)
+plt.xlabel('Actual values')
+plt.ylabel('Predicted values')
+plt.title('Random Forest predictions vs. actual values')
+plt.show()
